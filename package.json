@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/HirokiOka/p5-parse#readme",
   "dependencies": {
-    "esprima": "^4.0.1"
+    "escodegen": "^2.0.0",
+    "esprima": "^4.0.1",
+    "esprima-walk": "^0.1.0"
   }
 }

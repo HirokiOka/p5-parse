@@ -1,27 +1,23 @@
 const esprima = require('esprima');
+const escodegen = require('escodegen');
+const walk = require('esprima-walk');
 const fs = require('fs');
 
+
+const p5Methods = JSON.parse(fs.readFileSync('./p5_methods_splitted.json', 'utf-8'));
 const program = fs.readFileSync('./sketch.js', 'utf-8');
-const parsedData = esprima.parse(program);
+const ast = esprima.parseScript(program);
+const usedFunctions = new Set();
 
-fs.writeFileSync('./parsed.json', JSON.stringify(parsedData, null, 2));
-
-
-
-function exploreJSON(jsonObj) {
-  for (const key in jsonObj) {
-    if (typeof jsonObj[key] === 'object') {
-      exploreJSON(jsonObj[key]);
-    } else {
-      console.log(key + ": " + jsonObj[key]);
+walk(ast, (node) => {
+  if (node.type === 'CallExpression') {
+    const functionName = node.callee.name;
+    if (p5Methods.includes(functionName)) {
+      const p5FunctionName = 'p5.' + functionName;
+      node.callee.name = p5FunctionName;
     }
   }
-}
+});
 
-function getFunctions(jsonObj) {
-  for (const key in jsonObj) {
-    if (typeof jsonObj[key] === 'object') {
-      exploreJSON(jsonObj[key]);
-    } 
-  }
-}
+const genCode = escodegen.generate(ast);
+console.log(`OUTPUT:\n ${genCode}`);

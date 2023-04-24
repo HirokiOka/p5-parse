@@ -162,6 +162,23 @@
                 }
               ]
             }
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "CallExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "get"
+              },
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "value": "hello",
+                  "raw": "'hello'"
+                }
+              ]
+            }
           }
         ]
       },
