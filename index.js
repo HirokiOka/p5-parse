@@ -13,13 +13,17 @@ const ast = esprima.parseScript(program);
 //console.log(methodList);
 
 walk(ast, (node) => {
+  //console.log(typeof(node));
+  if (node.type === 'MemberExpression' && node.object.callee.name === 'createCanvas') {
+    console.log(node.property);
+  }
   if (node.type === 'CallExpression') {
     const functionName = node.callee.name;
-    if (p5Methods.includes(functionName)) {
-      node.callee.name = 'p5.' + functionName;
-    }
+    if (p5Methods.includes(functionName)) node.callee.name = 'p5.' + functionName;
   }
 });
 
+/*
 const genCode = escodegen.generate(ast);
 console.log(`OUTPUT:\n ${genCode}`);
+*/
