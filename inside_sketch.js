@@ -1,6 +1,3 @@
-createCanvas(100, 100);
-background(196);
-for (let i  = 0; i < 9; i++) {
-  const x = (i + 1) * 10;
-  line(x, 0, x, 100);
-}
+let cnv = createCanvas(100, 100).parent(canvasParentRef);
+cnv.style('width', '200px');
+cnv.style('height', '200px');

@@ -1,5 +1,5 @@
-const esprima = require('esprima');
 const fs = require('fs');
+const esprima = require('esprima');
 
 const program = fs.readFileSync('./inside_sketch.js', 'utf-8');
 
